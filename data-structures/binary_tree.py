@@ -4,6 +4,36 @@ class BSTNode:
         self.right = None
         self.val = val
 
+    # Tranversing the binary tree - types
+
+    # 1. Preorrder tranversal -visting self before visting other children
+    def preorder(self, visited):
+        visited.append(self.val)
+        if self.left:
+            self.left.preorder(visited)
+        if self.right:
+            self.right.preorder(visited)
+        return visited
+
+    #  2. Postorder traversal  - visting children before visting self
+    def postorder(self, visited):
+        if self.left:
+            self.left.postorder(visited)
+        if self.right:
+            self.right.postorder(visited)
+        visited.append(self.val)
+        return visited
+
+    # 3. Inorder traversal - visited left children then self then right children
+    def inorder(self, visited):
+        if self.left:
+            self.left.inorder(visited)
+
+        visited.append(self.val)
+
+        if self.right:
+            self.right.inorder(visited)
+
     def min_value(self):
         temp = self
         while temp.left is not None:
@@ -20,7 +50,7 @@ class BSTNode:
         # if self doesnt have a value then it doesnt have children nodes so there's nothing to delete in self or down the branch
         if self.val is None:
             return None
-        
+
         # if self has a left child  and the val is less than self's value perform the delete operation on the left child
         if self.val > val:
             if self.left:
@@ -41,10 +71,9 @@ class BSTNode:
         # if self has no left child return the right child
         if self.left is None:
             return self.right
-        
 
-        # Getting here means they have both children so what we want 
-        # to get the min value at the larger child(right child) to be the new node decider and delete that node 
+        # Getting here means they have both children so what we want
+        # to get the min value at the larger child(right child) to be the new node decider and delete that node
         min_larger_value = self.right
         while min_larger_value.left:
             min_larger_value = min_larger_value.left
@@ -53,8 +82,7 @@ class BSTNode:
         # deleting that min_larger value node so it doesnt exist no more
         self.right = self.delete(min_larger_value.val)
         return self
-    
-    
+
     def insert(self, val):
         # insert value into the node's vlaue if its empty
         # if not we have to check if the value is equal to its value, lesser or greater
