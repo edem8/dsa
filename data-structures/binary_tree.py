@@ -34,6 +34,17 @@ class BSTNode:
         if self.right:
             self.right.inorder(visited)
 
+    def exists(self, val):
+        if self.val == val:
+            return True
+        elif val < self.val and self.left:
+            return self.left.exists(val)
+        elif val > self.val and self.right:
+            return self.right.exists(val)
+        else:
+            return False
+
+
     def min_value(self):
         temp = self
         while temp.left is not None:
